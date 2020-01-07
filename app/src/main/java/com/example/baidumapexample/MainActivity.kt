@@ -20,6 +20,7 @@ import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode
 import com.baidu.mapapi.SDKInitializer
 import com.baidu.mapapi.map.*
+import com.baidu.mapapi.map.MarkerOptions
 
 
 class MainActivity : AppCompatActivity() {
@@ -53,6 +54,24 @@ class MainActivity : AppCompatActivity() {
         mBaiduMap = mMapView!!.map
 
         mBaiduMap.isMyLocationEnabled = true
+
+        val latLng = LatLng(39.963175, 116.400244)
+        val markerOptions = MarkerOptions()
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.bakery_marker))
+            .position(latLng)
+            .visible(true)
+
+        mBaiduMap.addOverlay(markerOptions)                         // add marker
+
+
+
+        mBaiduMap.setOnMarkerClickListener {
+            Toast.makeText(
+                this, "MARKER CLICK",
+                Toast.LENGTH_LONG
+            ).show()
+            true
+        }
 
         mBaiduMap.setOnMapClickListener(object : BaiduMap.OnMapClickListener {
             override fun onMapClick(latLng: LatLng) {
